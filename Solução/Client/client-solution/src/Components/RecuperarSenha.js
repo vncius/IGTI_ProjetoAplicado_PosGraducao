@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 
 export default function RecuperarSenha() {
   const [txtCPF, setCPF] = useState('');
-  const [txtSenha, setSenha] = useState('');
-  const [txtSenhaConfirm, setSenhaConfirm] = useState('');
+  // const [txtSenha, setSenha] = useState('');
+  // const [txtSenhaConfirm, setSenhaConfirm] = useState('');
   const [isEnvioCodigo, setEnvioCodigo] = useState(true);
 
 

@@ -19,12 +19,13 @@ function App() {
         <Route path="/cadastro">
           <Cadastro />
         </Route>
-        <Route path="/principal">
-          <h1>Not implemented</h1>
-        </Route>
         <Route path="/recuperar-senha">
           <RecuperarSenha />
         </Route>
+        <Route path="/principal">
+          <h1>Not implemented</h1>
+        </Route>
+
         <Route path="/">
           <Login />
         </Route>
