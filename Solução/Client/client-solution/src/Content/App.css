@@ -2,6 +2,24 @@ a {
   color: white;
 }
 
+nav {
+  background-color: rgba(10, 23, 55, 0.7);
+}
+
+nav .brand-logo {
+  padding-left: 10px;
+}
+
+nav ul span {
+  -webkit-transition: background-color .3s;
+  transition: background-color .3s;
+  font-size: 1rem;
+  color: #fff;
+  display: block;
+  padding: 0 15px;
+  cursor: pointer;
+}
+
 body {
   height: 100vh;
   background-image: url('./background.jpg');

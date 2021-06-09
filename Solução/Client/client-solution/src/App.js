@@ -2,6 +2,7 @@ import './Content/App.css'
 import Login from './Components/Login'
 import Cadastro from './Components/Cadastro'
 import RecuperarSenha from './Components/RecuperarSenha'
+import Principal from './Components/Principal'
 
 import {
   BrowserRouter as Router,
@@ -23,9 +24,8 @@ function App() {
           <RecuperarSenha />
         </Route>
         <Route path="/principal">
-          <h1>Not implemented</h1>
+          <Principal />
         </Route>
-
         <Route path="/">
           <Login />
         </Route>
