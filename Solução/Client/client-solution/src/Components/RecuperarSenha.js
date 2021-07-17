@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import '../Content/recuperar-senha.css';
 import InputPadrao from './Formulario/InputPadrao';
-import { Button } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import FadeIn from 'react-fade-in';
 
 export default function RecuperarSenha() {
   const [txtCPF, setCPF] = useState('');
@@ -25,21 +25,23 @@ export default function RecuperarSenha() {
   const enable = isEnvioCodigo ? {} : { display: 'none' };
 
   return (
-    <div id='content-recuperar-senha'>
-      <div id='div-recuperar-senha'>
-        <form onSubmit={enviarCodigo} style={enable}>
-          <div id='header'>
-            <h4>Recuperar senha</h4>
-          </div>
-          <div id='body'>
-            <InputPadrao label='CPF' value={txtCPF} change={changeCpf} />
-          </div>
-          <div id='footer'>
-            <Button type='submit' node='button' waves='light'>Enviar código</Button>
-            <Link to='/'><Button node='button' waves='light'>Voltar</Button></Link>
-          </div>
-        </form>
+    <FadeIn>
+      <div id='content-recuperar-senha'>
+        <div id='div-recuperar-senha'>
+          <form onSubmit={enviarCodigo} style={enable}>
+            <div id='header'>
+              <h4>Recuperar senha</h4>
+            </div>
+            <div id='body'>
+              <InputPadrao label='CPF' value={txtCPF} change={changeCpf} />
+            </div>
+            <div id='footer'>
+              <button type="submit" className="btn btn-primary">Enviar código</button>
+              <Link to='/login'><button type="button" className="btn btn-primary">Voltar</button></Link>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </FadeIn>
   )
 }

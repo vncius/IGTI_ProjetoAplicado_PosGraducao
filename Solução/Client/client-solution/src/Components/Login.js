@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import '../Content/login.css'
 import InputEmail from './Formulario/InputEmail'
 import InputPassword from './Formulario/InputPassword'
-import { Button } from 'react-materialize';
 import { Link, Redirect } from 'react-router-dom';
+import { Authentique } from '../auth';
+import FadeIn from 'react-fade-in';
+
 
 export default function Login() {
   const [txtLogin, setLogin] = useState('');
@@ -24,7 +26,7 @@ export default function Login() {
 
   function Autenticar(event) {
     event.preventDefault();
-    if (txtLogin === "admin@admin" && txtSenha === "admin") {
+    if (Authentique('txtLogin', txtSenha)) {
       setAutenticacao(true);
     } else {
       setAutenticacao(false);
@@ -33,26 +35,29 @@ export default function Login() {
   }
 
   return (
-    autenticacao ? <Redirect to="/principal" /> :
-      <div id='content-login'>
-        <div id='div-login'>
-          <form onSubmit={Autenticar}>
-            <div id='header'>
-              <h4>Adota Pet</h4>
-            </div>
-            <div id='body'>
-              <InputEmail value={txtLogin} id='email' disable={false} change={changeLogin} />
-              <InputPassword value={txtSenha} id='senha' disable={false} change={changeSenha} />
-            </div>
-            <div id='footer'>
-              <Button type='submit' node='button' waves='light'>Entrar</Button>
-              <Link to='/cadastro'><Button node='button' waves='light'>Cadastrar</Button></Link>
-              <div>
-                <Link to='/recuperar-senha'>Recuperar senha</Link>
+    autenticacao ? <Redirect to="/" /> :
+      <FadeIn>
+        <div id='content-login'>
+          <div id='div-login'>
+            <form onSubmit={Autenticar}>
+              <div id='header'>
+                <i className="material-icons icon-pet">pets</i>
+                <h4>Adota PET</h4>
               </div>
-            </div>
-          </form>
+              <div id='body'>
+                <InputEmail value={txtLogin} id='email' disable={false} change={changeLogin} />
+                <InputPassword value={txtSenha} id='senha' disable={false} change={changeSenha} />
+              </div>
+              <div id='footer'>
+                <button type="submit" className="btn btn-primary">Entrar</button>
+                <Link to='/cadastro'><button type="button" className="btn btn-primary">Cadastrar</button></Link>
+                <div>
+                  <Link to='/recuperar-senha'>Recuperar senha</Link>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
+      </FadeIn>
   )
 }

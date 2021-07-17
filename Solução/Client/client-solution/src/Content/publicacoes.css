@@ -1,0 +1,33 @@
+.card {
+  padding: 3px;
+  margin-bottom: 10px;
+}
+
+/* .card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: fill;
+} */
+
+.containerPublicacoes .row {
+  margin: 0;
+}
+
+.card img {
+  object-fit: cover;
+  width: 100%;
+  height: 250px;
+}
+
+.card-body {
+  padding: 10px;
+  color: black;
+}
+
+.containerPesquisar {
+  padding-top: 75px;
+}
+
+.pequisar {
+  width: 70%;
+}

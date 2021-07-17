@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Button } from 'react-materialize';
 import '../Content/cadastro.css';
 import InputPadrao from './Formulario/InputPadrao';
 import { Link } from 'react-router-dom';
+import FadeIn from 'react-fade-in';
 
 export default function Cadastro() {
   const [txtNome, setNome] = useState('');
@@ -29,34 +29,57 @@ export default function Cadastro() {
   const changeTelefone = (text) => { setTelefone(text); }
 
   return (
-    <div id='content-cadastro'>
-      <div id='div-cadastro'>
-        <form onSubmit={cadastrar}>
-          <div id='header'>
-            <h4>Cadastro de usuário</h4>
-          </div>
-          <div id='body'>
-            <InputPadrao label='E-mail' value={txtEmail} change={changeEmail} type='email' />
-            <InputPadrao label='Repita o e-mail' value={txtEmailConfirm} change={changeEmailConfirm} />
-            <div className='direcao-row'>
-              <InputPadrao label='Senha' value={txtSenha} change={changeSenha} type='password' />
-              <InputPadrao label='Repita a senha' value={txtSenhaConfirm} change={changeSenhaConfirm} type='password' />
+    <FadeIn>
+      <div id='content-cadastro'>
+        <div id='div-cadastro'>
+          <form onSubmit={cadastrar}>
+            <div id='header'>
+              <h4>Cadastro de usuário</h4>
             </div>
-            <div className='direcao-row'>
-              <InputPadrao label='Nome' value={txtNome} change={changeNome} />
-              <InputPadrao label='CPF' value={txtCpf} change={changeCpf} />
+            <div id='body'>
+              <div className="row">
+                <div className="col">
+                  <InputPadrao label='E-mail' value={txtEmail} change={changeEmail} type='email' />
+                </div>
+              </div>
+              <div className="row">
+                <div className="col">
+                  <InputPadrao label='Repita o e-mail' value={txtEmailConfirm} change={changeEmailConfirm} />
+                </div>
+              </div>
+              <div className='row'>
+                <div className="col-12 col-sm-6">
+                  <InputPadrao label='Senha' value={txtSenha} change={changeSenha} type='password' />
+                </div>
+                <div className="col-12 col-sm-6">
+                  <InputPadrao label='Repita a senha' value={txtSenhaConfirm} change={changeSenhaConfirm} type='password' />
+                </div>
+              </div>
+              <div className='row'>
+                <div className="col-12 col-sm-6">
+                  <InputPadrao label='Nome' value={txtNome} change={changeNome} />
+                </div>
+                <div className="col-12 col-sm-6">
+                  <InputPadrao label='CPF' value={txtCpf} change={changeCpf} />
+                </div>
+              </div>
+              <div className='row'>
+                <div className="col-12 col-sm-6">
+                  <InputPadrao label='CEP' value={txtCep} change={changeCep} />
+                </div>
+                <div className="col-12 col-sm-6">
+                  <InputPadrao label='Telefone' value={txtTelefone} change={changeTelefone} />
+                </div>
+              </div>
             </div>
-            <div className='direcao-row'>
-              <InputPadrao label='CEP' value={txtCep} change={changeCep} />
-              <InputPadrao label='Telefone' value={txtTelefone} change={changeTelefone} />
+            <div id='footer'>
+              <button type="submit" className="btn btn-primary">Cadastrar</button>
+              <Link to='/login'><button type="submit" className="btn btn-primary">Voltar</button></Link>
             </div>
-          </div>
-          <div id='footer'>
-            <Button type='submit' node='button' waves='light'>Cadastrar</Button>
-            <Link to='/'><Button node='button' waves='light'>Voltar</Button></Link>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-    </div>
+    </FadeIn>
+
   )
 }
