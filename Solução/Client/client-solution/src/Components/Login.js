@@ -49,8 +49,8 @@ export default function Login() {
                 <InputPassword value={txtSenha} id='senha' disable={false} change={changeSenha} />
               </div>
               <div id='footer'>
-                <button type="submit" className="btn btn-primary">Entrar</button>
-                <Link to='/cadastro'><button type="button" className="btn btn-primary">Cadastrar</button></Link>
+                <button type="submit" className="btn btn-secondary">Entrar</button>
+                <Link to='/cadastro'><button type="button" className="btn btn-secondary">Cadastrar</button></Link>
                 <div>
                   <Link to='/recuperar-senha'>Recuperar senha</Link>
                 </div>

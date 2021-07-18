@@ -16,10 +16,10 @@ export default function Pesquisar({ find }) {
 
   return (
     <div className="containerPesquisar">
-      <form onSubmit={Finder}>
+      <form className="formPesquisa" onSubmit={Finder}>
         <div className="row ">
           <div className="col-7" style={{ paddingRight: 0 }}><InputPadrao label='' value={txtFind} change={ChangeParameter} type='email' /></div>
-          <div className="col-5"><button type="submit" className="btn btn-primary">Pesquisar</button></div>
+          <div className="col-5"><button type="submit" className="btn btn-secondary">Pesquisar</button></div>
         </div>
       </form>
     </div>

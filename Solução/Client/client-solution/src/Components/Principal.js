@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import Publicacoes from './Publicacoes/Publicacoes';
 import Configuracoes from './Configuracoes';
+import NovaPublicacao from './Publicacoes/NovaPublicacao';
+import '../Content/principal.css'
 //import FadeIn from 'react-fade-in';
 
 export default function Principal() {
-  const [containerAtual, setContainerAtual] = useState('publicacoes');
+  const [containerAtual, setContainerAtual] = useState(menu.publicacoes.desc);
 
   const atualizaContainer = (event) => {
     setContainerAtual(event.target.attributes.select.value);
@@ -14,10 +16,11 @@ export default function Principal() {
     if (containerAtual === menu.publicacoes.desc) return menu.publicacoes.comp;
     if (containerAtual === menu.configuracoes.desc) return menu.configuracoes.comp;
     if (containerAtual === menu.minhasPublicacoes.desc) return menu.minhasPublicacoes.comp;
+    if (containerAtual === menu.novaPublicacao.desc) return menu.novaPublicacao.comp;
   }
 
   return (
-    <div className='DivPrincipal'>
+    <div className='DivPrincipal' style={{ height: '100vh' }}>
       <nav className="navbar navbar-expand-lg fixed-top navbar-dark bg-dark" style={{ paddingBottom: 0 }}>
         <i className="material-icons" style={{ paddingBottom: '18px', marginRight: '5px' }}>pets</i>
         <p className="navbar-brand">Adota PET</p>
@@ -33,6 +36,9 @@ export default function Principal() {
             </li>
             <li className="nav-item">
               <p className="nav-link" select={menu.publicacoes.desc} onClick={atualizaContainer}>Minhas Publicações</p>
+            </li>
+            <li className="nav-item">
+              <p className="nav-link" select={menu.novaPublicacao.desc} onClick={atualizaContainer}>Nova Publicação</p>
             </li>
             <li className="nav-item dropdown">
               <p className="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Configurações</p>
@@ -82,11 +88,15 @@ export default function Principal() {
 const menu = {
   publicacoes: {
     desc: 'publicações',
-    comp: <Publicacoes ehTodasPublicacoes={false} />
+    comp: <Publicacoes ehTodasPublicacoes={true} />
   },
   minhasPublicacoes: {
     desc: 'minhas-publicações',
-    comp: <Publicacoes ehTodasPublicacoes={true} />
+    comp: <Publicacoes ehTodasPublicacoes={false} />
+  },
+  novaPublicacao: {
+    desc: 'nova-publicacao',
+    comp: <NovaPublicacao />
   },
   configuracoes: {
     desc: 'configuração',

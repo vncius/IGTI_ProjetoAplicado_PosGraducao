@@ -73,8 +73,8 @@ export default function Cadastro() {
               </div>
             </div>
             <div id='footer'>
-              <button type="submit" className="btn btn-primary">Cadastrar</button>
-              <Link to='/login'><button type="submit" className="btn btn-primary">Voltar</button></Link>
+              <button type="submit" className="btn btn-secondary">Cadastrar</button>
+              <Link to='/login'><button type="submit" className="btn btn-secondary">Voltar</button></Link>
             </div>
           </form>
         </div>

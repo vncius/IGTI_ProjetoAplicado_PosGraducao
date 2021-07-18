@@ -12,7 +12,7 @@ export default function Publicacoes({ ehTodasPublicacoes }) {
     (async () => {
       var response = await fetch('http://localhost:3000/Publicacoes/');
       var json = await response.json();
-      setPublicacoes(json)
+      setPublicacoes(ehTodasPublicacoes ? json : [json[0]])
     })();
   }, [])
 

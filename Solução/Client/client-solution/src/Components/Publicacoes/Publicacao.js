@@ -20,7 +20,7 @@ export default function Publicacao({ dados }) {
         <div className="card-body">
           <h5 className="card-title">{Nome}</h5>
           <p className="card-text">{Descricao}</p>
-          <p onClick={CarregarInformacoes} className="btn btn-primary">Ver mais</p>
+          <p onClick={CarregarInformacoes} className="btn btn-secondary">Ver mais</p>
         </div>
       </div>
     </div>

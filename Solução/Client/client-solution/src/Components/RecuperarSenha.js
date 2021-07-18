@@ -36,8 +36,8 @@ export default function RecuperarSenha() {
               <InputPadrao label='CPF' value={txtCPF} change={changeCpf} />
             </div>
             <div id='footer'>
-              <button type="submit" className="btn btn-primary">Enviar código</button>
-              <Link to='/login'><button type="button" className="btn btn-primary">Voltar</button></Link>
+              <button type="submit" className="btn btn-secondary">Enviar código</button>
+              <Link to='/login'><button type="button" className="btn btn-secondary">Voltar</button></Link>
             </div>
           </form>
         </div>
