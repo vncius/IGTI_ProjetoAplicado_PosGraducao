@@ -1,44 +1,44 @@
-#content-cadastro {
+.content-formulario {
+  color: white;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-top: 5%;
 }
 
-#content-cadastro #body .input-field {
+.content-formulario #body .input-field {
   margin-bottom: 0.5px;
 }
 
-#content-cadastro .direcao-row {
+.content-formulario .direcao-row {
   display: flex;
   justify-content: space-between;
 }
 
-#content-cadastro .direcao-row .input-field {
+.content-formulario .direcao-row .input-field {
   width: 48%;
 }
 
-#content-cadastro #div-cadastro {
+.content-formulario .div-formulario {
   width: 550px;
   text-align: center;
   margin-bottom: 10px;
-  background-color: rgba(10, 23, 55, 0.5);
+  background-color: rgba(72, 61, 139, 1);
   border-radius: 3%;
-  padding: 0px 25px 0px 25px;
+  padding: 10px 25px 0px 25px;
   border: 3px solid aliceblue;
 }
 
-#content-cadastro #header, #content-cadastro #footer {
+.content-formulario #header, .content-formulario #footer {
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
-#content-cadastro #header, #content-cadastro #footer {
+.content-formulario #header, .content-formulario #footer {
   margin-bottom: 20px;
 }
 
-#content-cadastro #footer button {
+.content-formulario #footer button {
   margin: 0 5px 0 5px;
 }
 
@@ -47,10 +47,10 @@
 }
 
 @media (max-width: 550px) {
-  #content-cadastro {
+  .content-formulario {
     padding-top: 0%;
   }
-  #content-cadastro #div-cadastro {
+  .content-formulario .div-formulario {
     width: 100%;
     margin: 30px 20px 30px 20px;
   }

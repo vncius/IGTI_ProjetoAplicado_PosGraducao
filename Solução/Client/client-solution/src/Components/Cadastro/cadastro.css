@@ -1,5 +1,4 @@
-#content-nova-publicacao {
-  color: white;
+#content-cadastro {
   width: 100%;
   display: flex;
   align-items: center;
@@ -7,39 +6,39 @@
   padding-top: 5%;
 }
 
-#content-nova-publicacao #body .input-field {
+#content-cadastro #body .input-field {
   margin-bottom: 0.5px;
 }
 
-#content-nova-publicacao .direcao-row {
+#content-cadastro .direcao-row {
   display: flex;
   justify-content: space-between;
 }
 
-#content-nova-publicacao .direcao-row .input-field {
+#content-cadastro .direcao-row .input-field {
   width: 48%;
 }
 
-#content-nova-publicacao #div-nova-publicacao {
+#content-cadastro #div-cadastro {
   width: 550px;
   text-align: center;
   margin-bottom: 10px;
-  background-color: rgba(10, 23, 55, 0.5);
+  background-color: rgba(72, 61, 139, 1);
   border-radius: 3%;
   padding: 0px 25px 0px 25px;
   border: 3px solid aliceblue;
 }
 
-#content-nova-publicacao #header, #content-nova-publicacao #footer {
+#content-cadastro #header, #content-cadastro #footer {
   margin-bottom: 20px;
   margin-top: 20px;
 }
 
-#content-nova-publicacao #header, #content-nova-publicacao #footer {
+#content-cadastro #header, #content-cadastro #footer {
   margin-bottom: 20px;
 }
 
-#content-nova-publicacao #footer button {
+#content-cadastro #footer button {
   margin: 0 5px 0 5px;
 }
 
@@ -48,10 +47,10 @@
 }
 
 @media (max-width: 550px) {
-  #content-nova-publicacao {
+  #content-cadastro {
     padding-top: 0%;
   }
-  #content-nova-publicacao #div-nova-publicacao {
+  #content-cadastro #div-cadastro {
     width: 100%;
     margin: 30px 20px 30px 20px;
   }

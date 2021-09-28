@@ -8,7 +8,7 @@ const InputFile = ({ icon, label, disable, value, change, classes, type }) => {
   return (
     <div className="custom-file">
       <input type="file" className="custom-file-input" id={id} multiple onChange={inputChange} />
-      <label className="custom-file-label" htmlFor={id} value={value}>Selecione</label>
+      <label className="custom-file-label" htmlFor={id} value={value}>Imagem</label>
     </div>
   );
 }

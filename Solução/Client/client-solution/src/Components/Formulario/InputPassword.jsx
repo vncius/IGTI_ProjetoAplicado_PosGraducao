@@ -1,4 +1,4 @@
-const InputPassword = ({ id, disable, classes, value, change }) => {
+const InputPassword = ({ id, disable, classes, value, change, style }) => {
   const changeInput = (event) => {
     change(event.target.value);
   }
@@ -6,7 +6,7 @@ const InputPassword = ({ id, disable, classes, value, change }) => {
   return (
     <div className="form-group">
       <label htmlFor={id}>Senha</label>
-      <input type="password" onChange={changeInput} value={value} disabled={disable} className="form-control" id={id} />
+      <input type="password" onChange={changeInput} value={value} disabled={disable} className="form-control" id={id} style={style} />
     </div>
 
     // <TextInput

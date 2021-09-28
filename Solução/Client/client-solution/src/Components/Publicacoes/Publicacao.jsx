@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 
-export default function Publicacao({ dados }) {
+export default function Publicacao({ dados, selected }) {
   const { Id,
     Nome,
     Descricao,
     Estado,
     Cidade,
     Setor,
-    ImgPrincipal } = dados;
+    ImgPrincipal,
+    Sexo } = dados;
 
-  const CarregarInformacoes = (event) => {
-
+  const CarregarInformacoes = () => {
+    console.log(dados);
+    selected(Id);
   }
 
   return (
@@ -18,9 +20,9 @@ export default function Publicacao({ dados }) {
       <div className="card" style={{ width: '100%' }}>
         <img className="card-img-top img-thumbnail" src={ImgPrincipal} alt="publicação" />
         <div className="card-body">
-          <h5 className="card-title">{Nome}</h5>
-          <p className="card-text">{Descricao}</p>
-          <p onClick={CarregarInformacoes} className="btn btn-secondary">Ver mais</p>
+          <h5 className="card-title text-truncate">{Nome} - {Sexo}</h5>
+          <p className="card-text text-truncate" style={{ color: 'darkgray' }}>{Estado} - {Cidade} - {Setor}</p>
+          <p type="button" onClick={CarregarInformacoes} className="btn btn-secondary" data-toggle="modal" data-target=".modal-detalhes-pet" style={{ width: '100%' }}>Detalhes</p>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import '../Content/recuperar-senha.css';
-import InputPadrao from './Formulario/InputPadrao';
+import './recuperar-senha.css';
+import InputPadrao from '../Formulario/InputPadrao';
 import { Link } from 'react-router-dom';
 import FadeIn from 'react-fade-in';
 

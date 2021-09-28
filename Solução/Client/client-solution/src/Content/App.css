@@ -23,11 +23,33 @@ a {
 body {
   font-family: "Nunito", Tahoma, Verdana, sans-serif;
   height: 100vh;
-  background-image: url('./background.jpg');
+  background-image: url('./img/background.jpg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
   color: aliceblue;
   transition-duration: 5s;
   background-attachment: fixed;
+  padding: 0px!important;
+}
+
+body .modal {
+  padding:0px!important;
+}
+
+.heigth100{
+  height: 100%!important;
+}
+
+.heigth100 div:nth-of-type(1) {
+  height: 100%;
+}
+
+.SpinnerCustom .sweet-loading {
+  height: auto!important;
+}
+
+.modal .SpinnerCustomContainer{
+  background-color: transparent!important;
+  padding-top: 0!important;
 }

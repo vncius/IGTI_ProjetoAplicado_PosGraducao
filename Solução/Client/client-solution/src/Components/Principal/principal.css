@@ -1,0 +1,21 @@
+.DivPrincipal {
+  height: 100vh;
+  padding-top: 62px;
+  color: black;
+}
+
+.container-principal{
+  height: 100%;
+}
+
+/* 
+#footer{
+  color: white;
+  background-color: darkslateblue;
+  bottom: 0;
+  width: 100%;
+}
+
+#footer .row .col {
+  padding: 10px
+} */
