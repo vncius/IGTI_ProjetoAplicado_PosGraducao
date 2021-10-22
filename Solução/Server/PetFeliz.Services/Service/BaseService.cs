@@ -1,4 +1,5 @@
-﻿using PetFeliz.Interfaces.Repository;
+﻿using Newtonsoft.Json;
+using PetFeliz.Interfaces.Repository;
 using PetFeliz.Interfaces.Service;
 using System.Collections.Generic;
 using System.Net;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace PetFeliz.Services.Service
 {
-    public abstract class BaseService<T> : IBaseService<T>
+    public abstract class BaseService<T> : IBaseService<T> 
     {
         private readonly IBaseRepository<T> _repository;
 
@@ -15,55 +16,80 @@ namespace PetFeliz.Services.Service
             _repository = repository;
         }
 
-        public async Task<IList<T>> GetList()
+        public abstract Task<object> GetDTO(T model);
+        public abstract Task<IList<object>> GetDTO(IList<T> model);
+
+        public virtual async Task<IList<TDto>> GetList<TDto>()
         {
             var result = await _repository.GetList();
-
-            return ValidReturnGet(result);
+            ValidReturnGet(result);
+            var dto = await GetDTO(result);
+            return ConvertTo<List<TDto>>(dto);
         }
 
-        public async Task<T> GetById(long id)
+        public virtual async Task<TDto> GetById<TDto>(long id)
         {
             var result = await _repository.GetById(id);
-
-            return ValideReturnGet(result);
+            ValideReturnGet(result);
+            var dto = await GetDTO(result);
+            return ConvertTo<TDto>(dto);
         }
 
-        public async Task<T> Save(T publicacao)
+        public virtual async Task<TDto> Save<TDto>(T user)
         {
-            var result = await _repository.Save(publicacao);
-            return ValidReturnSave(result);
+            var result = await _repository.Save(user);
+            ValidReturnSave(result);
+            var dto = await GetDTO(result);
+            return ConvertTo<TDto>(dto);
         }
 
-        public async Task<T> Delete(long id)
+        public virtual async Task<TDto> Delete<TDto>(long id)
         {
             var result = await _repository.DeleteById(id);
-            return ValideRetornoDelete(result);
+            ValideRetornoDelete(result);
+            var dto = await GetDTO(result);
+            return ConvertTo<TDto>(dto);
         }
-
         #region PROTECTED METHODS
 
-        protected IList<T> ValidReturnGet(IList<T> lista)
+        protected void ValidReturnGet(IList<T> lista)
         {
             if (lista.Count == 0) throw new HttpException(HttpStatusCode.NoContent);
-            return lista;
         }
 
-        protected T ValideReturnGet(T valor)
+        protected void ValideReturnGet(T valor)
         {
-            return valor ?? throw new HttpException(HttpStatusCode.NoContent); ;
+            if (valor == null) throw new HttpException(HttpStatusCode.NoContent);
         }
 
-        protected T ValidReturnSave(T valor)
+        protected void ValidReturnSave(T valor)
         {
-            return valor ?? throw new HttpException(HttpStatusCode.BadRequest);
+            if (valor == null) throw new HttpException(HttpStatusCode.BadRequest, "It was not possible to include the requested amount");
         }
 
-        protected T ValideRetornoDelete(T valor)
+        protected void ValideRetornoDelete(T valor)
         {
-            return valor ?? throw new HttpException(HttpStatusCode.BadRequest);
+            if (valor == null) throw new HttpException(HttpStatusCode.BadRequest, "Object not encountered");
         }
 
+        protected TDto ConvertTo<TDto>(object dtoConverted)
+        {
+            //if (!(dtoConverted is TDto))
+            //{
+            //    var expected = typeof(TDto).Name;
+            //    var entrance = dtoConverted.GetType().Name;
+            //    throw new Exception($"Failed to convert model to DTO. Expected: {expected} - Entrance: {entrance}");
+            //}
+
+            if (dtoConverted == null)
+            {
+                return default;
+            }
+
+            var serialized = JsonConvert.SerializeObject(dtoConverted);
+
+            return JsonConvert.DeserializeObject<TDto>(serialized);
+        }
         #endregion PROTECTED METHODS
     }
 }

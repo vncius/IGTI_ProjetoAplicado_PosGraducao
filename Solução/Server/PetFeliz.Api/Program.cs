@@ -1,5 +1,10 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using PetFeliz.Infrastructure;
+using PetFeliz.Services;
+using System;
 
 namespace PetFeliz.Api
 {
@@ -8,7 +13,7 @@ namespace PetFeliz.Api
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            //CreateDbIfNotExists(host);
+            CreateDbIfNotExists(host);
             host.Run();
         }
 
@@ -19,22 +24,22 @@ namespace PetFeliz.Api
                     webBuilder.UseStartup<Startup>();
                 });
 
-        //private static void CreateDbIfNotExists(IHost host)
-        //{
-        //    using (var scope = host.Services.CreateScope())
-        //    {
-        //        var services = scope.ServiceProvider;
-        //        try
-        //        {
-        //            var context = services.GetRequiredService<PetFelixDBContext>();
-        //            DbInitializer.Initialize(context);
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            var logger = services.GetRequiredService<ILogger<Program>>();
-        //            logger.LogError(ex, "An error occurred creating the DB.");
-        //        }
-        //    }
-        //}
+        private static void CreateDbIfNotExists(IHost host)
+        {
+            using (var scope = host.Services.CreateScope())
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<ContextDB>();
+                    DBInitializer.Initialize(context);
+                }
+                catch (Exception ex)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(ex, "An error occurred creating the DB.");
+                }
+            }
+        }
     }
 }

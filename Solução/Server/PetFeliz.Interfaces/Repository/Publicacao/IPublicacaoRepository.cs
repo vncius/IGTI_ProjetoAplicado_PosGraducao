@@ -1,4 +1,4 @@
-﻿using PetFeliz.Domain.Model;
+﻿using PetFeliz.Domain.Model.Publication;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 

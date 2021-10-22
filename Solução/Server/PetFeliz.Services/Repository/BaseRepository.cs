@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace PetFeliz.Services.Repository
 {
-    public abstract class BaseRepository<TDto> : IBaseRepository<TDto> where TDto : BaseObject
+    public abstract class BaseRepository<TDto> : IBaseRepository<TDto> where TDto : BaseModel
     {
         protected readonly ContextDB _contextDB;
 
@@ -24,7 +24,7 @@ namespace PetFeliz.Services.Repository
 
             if (modelConverted != null && modelConverted.Id > 0)
             {
-                var item = GetById(modelConverted.Id) as TDto;
+                var item = await GetById(modelConverted.Id) as TDto;
                 if (item != null)
                 {
                     await DeleteById(item.Id);
@@ -38,15 +38,16 @@ namespace PetFeliz.Services.Repository
 
         public async virtual Task<TDto> DeleteById(long id)
         {
-            var item = GetById(id);
-            if (item == null)
+            var item = await GetById(id);
+
+            if (item == null || item == null)
             {
                 return null;
             }
 
             _contextDB.Remove(item);
             await _contextDB.SaveChangesAsync();
-            return item as TDto;
+            return item;
         }
     }
 }

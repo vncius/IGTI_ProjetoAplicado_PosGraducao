@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFeliz.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFeliz.Services", "..\PetFeliz.Services\PetFeliz.Services.csproj", "{F0037272-F65F-464D-80F7-F708825317CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetFeliz.Interfaces", "..\PetFeliz.Interfaces\PetFeliz.Interfaces.csproj", "{6BEADE4D-B9D1-4B28-B395-A1CFEB3BF11C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetFeliz.Interfaces", "..\PetFeliz.Interfaces\PetFeliz.Interfaces.csproj", "{6BEADE4D-B9D1-4B28-B395-A1CFEB3BF11C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

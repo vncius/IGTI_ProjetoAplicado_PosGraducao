@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PetFeliz.Infrastructure;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace PetFeliz.Api
 {
@@ -19,8 +20,7 @@ namespace PetFeliz.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(options =>
-                options.Filters.Add(new HttpResponseFilter()));
+            services.AddControllers(options => options.Filters.Add(new HttpResponseFilter()));
 
             services.ConfigureDependences(Configuration);
 
@@ -37,7 +37,10 @@ namespace PetFeliz.Api
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "PetFeliz.Api v1"));
+                app.UseSwaggerUI(c => {
+                    c.DefaultModelsExpandDepth(-1);
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "PetFeliz.Api v1");
+                }) ;
             }
 
             app.UseHttpsRedirection();

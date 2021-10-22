@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PetFeliz.Domain.Model;
+using PetFeliz.Domain.Model.Publication;
 using PetFeliz.Interfaces.Repository.Publicacao;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +25,7 @@ namespace PetFeliz.Services.Repository.Publicacao
 
         public async Task<IList<PublicationModel>> GetByUserId(long id)
         {
-            return await _contextDB.Publicacoes.Where(x => x.idUser == id).ToListAsync();
+            return await _contextDB.Publicacoes.Where(x => x.User.Id == id).ToListAsync();
         }
     }
 }

@@ -5,12 +5,12 @@ namespace PetFeliz.Interfaces.Service
 {
     public interface IBaseService<T>
     {
-        Task<IList<T>> GetList();
+        Task<IList<TDto>> GetList<TDto>();
 
-        Task<T> GetById(long id);
+        public Task<TDto> GetById<TDto>(long id);
 
-        Task<T> Save(T publicacao);
+        public Task<TDto> Save<TDto>(T user);
 
-        Task<T> Delete(long id);
+        public Task<TDto> Delete<TDto>(long id);
     }
 }

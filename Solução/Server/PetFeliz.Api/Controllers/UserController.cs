@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PetFeliz.Domain.Model;
+using PetFeliz.Domain.Model.User;
+using PetFeliz.Infrastructure;
 using PetFeliz.Interfaces.Service.User;
 using System.Net;
 using System.Threading.Tasks;
@@ -21,47 +22,52 @@ namespace PetFeliz.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> GetPublicacoes()
+        public async Task<IActionResult> GetUsers()
         {
-            return Ok(await _userService.GetList());
+            return Ok(await _userService.GetList<UserModel>());
         }
 
         [HttpGet("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> GetPublicacao(long id)
+        public async Task<IActionResult> GetUser(long id)
         {
-            return Ok(await _userService.GetById(id));
+            return Ok(await _userService.GetById<UserModel>(id));
         }
 
         [HttpPut]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> PutPublicacao([FromBody] UserModel publicacao)
+        public async Task<IActionResult> PutUser([FromBody] UserModel user)
         {
-            return Ok(await _userService.Save(publicacao));
+            return Ok(await _userService.Save<UserModel>(user));
         }
 
         [HttpPost]
         [ProducesResponseType((int)HttpStatusCode.OK)]
         [ProducesResponseType((int)HttpStatusCode.NoContent)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<ActionResult<UserModel>> PostPublicacao([FromBody] UserModel publicacao)
+        public async Task<ActionResult<UserModel>> PostUser([FromBody] UserModel user)
         {
-            var result = await _userService.Save(publicacao);
+            if (user != null) 
+            {
+                user.Password = user.Password.Encripty();
+            }
 
-            return CreatedAtAction(nameof(GetPublicacao), new { id = publicacao.Id }, result);
+            var result = await _userService.Save<UserModel>(user);
+
+            return CreatedAtAction(nameof(GetUser), new { id = user.Id }, result);
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
-        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
-        public async Task<IActionResult> DeletePublicacao([FromQuery] long id)
+        public async Task<IActionResult> DeleteUser(long id)
         {
-            return Ok(await _userService.Delete(id));
+            return Ok(await _userService.Delete<UserModel>(id));
         }
     }
 }
