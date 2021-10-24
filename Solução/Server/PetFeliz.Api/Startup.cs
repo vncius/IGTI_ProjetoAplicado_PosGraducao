@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using PetFeliz.Infrastructure;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.IO;
 
 namespace PetFeliz.Api
 {
@@ -52,6 +54,12 @@ namespace PetFeliz.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "StaticFiles")),
+                RequestPath = "/v1/PetImages"
             });
         }
     }

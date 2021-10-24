@@ -1,6 +1,9 @@
 ﻿using PetFeliz.Domain.DTO;
 using PetFeliz.Domain.Model.Localization;
 using PetFeliz.Domain.Model.User;
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
 
 namespace PetFeliz.Domain.Model.Publication
 {
@@ -16,9 +19,10 @@ namespace PetFeliz.Domain.Model.Publication
             Descricao = dto.Descricao;
             CidadeId = dto.CidadeId;
             Setor = dto.Setor;
-            ImgUrl = dto.ImgPrincipal;
             Sexo = dto.Sexo;
             Idade = dto.Idade;
+            IsAdotado = dto.IsAdotado;
+            NameImagem = dto.NameImagem;
         }
 
         public UserModel User { get; set; }
@@ -28,8 +32,40 @@ namespace PetFeliz.Domain.Model.Publication
         public CityModel Cidade { get; set; }
         public long CidadeId { get; set; }
         public string Setor { get; set; }
-        public string ImgUrl { get; set; }
         public string Sexo { get; set; }
         public int Idade { get; set; }
+        public bool IsAdotado { get; set; }
+        public string NameImagem { get; set; }
+
+        [NotMapped]
+        public string ImagemBase64 { get; set; }
+        [NotMapped]
+        public string ImagemExtension { get; set; }
+
+        public bool SaveImage()
+        {
+            var pathSolution = System.AppDomain.CurrentDomain.BaseDirectory.ToString();
+            pathSolution = pathSolution.Remove(pathSolution.IndexOf("PetFeliz.Api") + 12);
+
+            if (Directory.Exists(pathSolution))
+            {
+                var image = Convert.FromBase64String(ImagemBase64);
+
+                if (!String.IsNullOrEmpty(NameImagem))
+                {
+                    File.Delete(Path.Combine(pathSolution, NameImagem));
+                    File.WriteAllBytes(Path.Combine(pathSolution, "StaticFiles", NameImagem), image);
+                    return true;
+                }
+
+                NameImagem = $"{Guid.NewGuid()}.{ImagemExtension}";
+                File.WriteAllBytes(Path.Combine(pathSolution, "StaticFiles", NameImagem), image);
+                return true;
+            }
+            else
+            {
+                throw new Exception("Falha ao obter local de gravação das imagens");
+            }
+        }
     }
 }

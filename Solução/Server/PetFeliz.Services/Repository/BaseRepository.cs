@@ -1,4 +1,5 @@
-﻿using PetFeliz.Domain;
+﻿using Microsoft.EntityFrameworkCore;
+using PetFeliz.Domain;
 using PetFeliz.Interfaces.Repository;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,18 +8,24 @@ namespace PetFeliz.Services.Repository
 {
     public abstract class BaseRepository<TDto> : IBaseRepository<TDto> where TDto : BaseModel
     {
-        protected readonly ContextDB _contextDB;
+        protected readonly DbSet<TDto> _contextDB;
 
         public BaseRepository(ContextDB contextDB)
         {
-            _contextDB = contextDB;
+            _contextDB = contextDB.Set<TDto>();
         }
 
-        public abstract Task<TDto> GetById(long id);
+        public async Task<TDto> GetById(long id)
+        {
+            return await _contextDB.FindAsync(id);
+        }
 
-        public abstract Task<IList<TDto>> GetList();
+        public async Task<IList<TDto>> GetList()
+        {
+            return await _contextDB.AsNoTracking().ToListAsync();
+        }
 
-        public async virtual Task<T> Save<T>(T model)
+        public async virtual Task<TDto> Save(TDto model)
         {
             var modelConverted = model as TDto;
 
@@ -32,7 +39,6 @@ namespace PetFeliz.Services.Repository
             }
 
             await _contextDB.AddAsync(model);
-            await _contextDB.SaveChangesAsync();
             return model;
         }
 
@@ -46,7 +52,6 @@ namespace PetFeliz.Services.Repository
             }
 
             _contextDB.Remove(item);
-            await _contextDB.SaveChangesAsync();
             return item;
         }
     }

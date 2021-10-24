@@ -10,16 +10,16 @@
   <ItemGroup>
     <Compile Remove="Domain\**" />
     <Compile Remove="Infrastructure\**" />
-    <Compile Remove="NewFolder\**" />
+    <Compile Remove="StaticFiles\**" />
     <Content Remove="Domain\**" />
     <Content Remove="Infrastructure\**" />
-    <Content Remove="NewFolder\**" />
+    <Content Remove="StaticFiles\**" />
     <EmbeddedResource Remove="Domain\**" />
     <EmbeddedResource Remove="Infrastructure\**" />
-    <EmbeddedResource Remove="NewFolder\**" />
+    <EmbeddedResource Remove="StaticFiles\**" />
     <None Remove="Domain\**" />
     <None Remove="Infrastructure\**" />
-    <None Remove="NewFolder\**" />
+    <None Remove="StaticFiles\**" />
   </ItemGroup>
 
   <ItemGroup>

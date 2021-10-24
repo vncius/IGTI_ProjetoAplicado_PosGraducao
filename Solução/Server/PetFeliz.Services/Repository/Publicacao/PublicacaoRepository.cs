@@ -12,20 +12,9 @@ namespace PetFeliz.Services.Repository.Publicacao
         public PublicacaoRepository(ContextDB contextDB) : base(contextDB)
         {
         }
-
-        public async override Task<PublicationModel> GetById(long id)
-        {
-            return await _contextDB.Publicacoes.FindAsync(id);
-        }
-
-        public async override Task<IList<PublicationModel>> GetList()
-        {
-            return await _contextDB.Publicacoes.ToListAsync();
-        }
-
         public async Task<IList<PublicationModel>> GetByUserId(long id)
         {
-            return await _contextDB.Publicacoes.Where(x => x.User.Id == id).ToListAsync();
+            return await _contextDB.Where(x => x.User.Id == id).AsNoTracking().ToListAsync();
         }
     }
 }

@@ -51,6 +51,7 @@ namespace PetFeliz.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> PutPublicacao([FromBody] PublicationModel publicacao)
         {
+            publicacao.SaveImage();
             return Ok(await _publicacaoService.Save<DTOPublication>(publicacao));
         }
 
@@ -60,8 +61,8 @@ namespace PetFeliz.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> PostPublicacao([FromBody] PublicationModel publicacao)
         {
+            publicacao.SaveImage();
             var result = await _publicacaoService.Save<DTOPublication>(publicacao);
-
             return CreatedAtAction(nameof(PostPublicacao), new { id = publicacao.Id }, result);
         }
 

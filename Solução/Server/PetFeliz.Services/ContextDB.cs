@@ -9,21 +9,33 @@ namespace PetFeliz.Services
     {
         public ContextDB(DbContextOptions<ContextDB> options) : base(options)
         {
-            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
         public DbSet<PublicationModel> Publicacoes { get; set; }
-        public DbSet<UserModel> User { get; set; }
-        public DbSet<CityModel> City { get; set; }
-        public DbSet<CountryModel> Country { get; set; }
+        public DbSet<UserModel> Users { get; set; }
+        public DbSet<CityModel> Cities { get; set; }
+        public DbSet<CountryModel> Countries { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PublicationModel>()
+                .HasOne(pub => pub.User)
+                .WithMany(user => user.Publicacoes)
+                .HasForeignKey(pub => pub.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<PublicationModel>()
+                .HasOne(pub => pub.Cidade)
+                .WithMany(city => city.Publicacoes)
+                .HasForeignKey(pub => pub.CidadeId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-        //    modelBuilder.Entity<PublicationModel>()
-        //        .HasOne<UserModel>(p => p.)
-        //}
+            modelBuilder.Entity<UserModel>()
+                .HasOne(usr => usr.Cidade)
+                .WithMany(city => city.Users)
+                .HasForeignKey(pub => pub.CidadeId)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
     }
 }

@@ -9,7 +9,7 @@ namespace PetFeliz.Interfaces.Repository
 
         Task<IList<TDto>> GetList();
 
-        Task<T> Save<T>(T model);
+        Task<TDto> Save(TDto model);
 
         Task<TDto> DeleteById(long id);
     }

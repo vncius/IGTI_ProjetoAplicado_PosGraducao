@@ -11,15 +11,5 @@ namespace PetFeliz.Services.Repository.Localization
         public CountryRepository(ContextDB contextDB) : base(contextDB)
         {
         }
-
-        public async override Task<CountryModel> GetById(long id)
-        {
-            return await _contextDB.Country.FindAsync(id);
-        }
-
-        public async override Task<IList<CountryModel>> GetList()
-        {
-            return await _contextDB.Country.ToListAsync();
-        }
     }
 }

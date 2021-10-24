@@ -13,19 +13,9 @@ namespace PetFeliz.Services.Repository.Localization
         {
         }
 
-        public async override Task<CityModel> GetById(long id)
-        {
-            return await _contextDB.City.FindAsync(id);
-        }
-
-        public async override Task<IList<CityModel>> GetList()
-        {
-            return await _contextDB.City.ToListAsync();
-        }
-
         public async Task<IList<CityModel>> GetListByIdCountry(long id)
         {
-            return await _contextDB.City.Where(x => x.Country.Id == id).ToListAsync();
+            return await _contextDB.Where(x => x.Country.Id == id).AsNoTracking().ToListAsync();
         }
     }
 }

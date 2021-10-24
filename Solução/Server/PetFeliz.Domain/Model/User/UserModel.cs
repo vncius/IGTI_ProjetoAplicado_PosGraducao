@@ -1,4 +1,6 @@
 ﻿using PetFeliz.Domain.Model.Localization;
+using PetFeliz.Domain.Model.Publication;
+using System.Collections.Generic;
 
 namespace PetFeliz.Domain.Model.User
 {
@@ -11,5 +13,6 @@ namespace PetFeliz.Domain.Model.User
         public string CPF { get; set; }
         public string Telefone { get; set; }
         public string Password { get; set; }
+        public List<PublicationModel> Publicacoes { get; set; }
     }
 }
