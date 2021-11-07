@@ -14,7 +14,12 @@ namespace PetFeliz.Services.Repository.User
 
         public async Task<bool> GetByUserSenha(string email, string password)
         {
-            return await _contextDB.Where(x => x.Email.Equals(email) && x.Password.Equals(password)).AnyAsync();
+            return await _contextDB.Set<UserModel>().Where(x => x.Email.Equals(email) && x.Password.Equals(password)).AnyAsync();
+        }        
+        
+        public async Task<UserModel> GetUserEmail(string email)
+        {
+            return await _contextDB.Set<UserModel>().Where(x => x.Email.Equals(email)).FirstAsync();
         }
     }
 }

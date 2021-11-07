@@ -20,10 +20,10 @@
 }
 
 .content-formulario .div-formulario {
+  color: black;
   width: 550px;
   text-align: center;
   margin-bottom: 10px;
-  background-color: rgba(72, 61, 139, 1);
   border-radius: 3%;
   padding: 10px 25px 0px 25px;
   border: 3px solid aliceblue;

@@ -35,12 +35,14 @@ export default function Login() {
   }
 
   const valideForm = () => {
+    let retorno = true;
+
     if (txtLogin.length <= 0 || txtSenha.length <= 0) {
       setValidacao('Os campos login e senha são obrigatórios');
+      retorno = false;
     }
 
-    if (validacao !== '') { return false; }
-    return true;
+    return retorno;
   }
 
   const hasValidacao = validacao !== '';

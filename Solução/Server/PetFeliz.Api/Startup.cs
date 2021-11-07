@@ -23,9 +23,9 @@ namespace PetFeliz.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options => options.Filters.Add(new HttpResponseFilter()));
-
             services.ConfigureDependences(Configuration);
 
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -45,6 +45,12 @@ namespace PetFeliz.Api
                 }) ;
             }
 
+            app.UseCors(option => {
+                option.AllowAnyOrigin();
+                option.AllowAnyHeader();
+                option.AllowAnyMethod();
+            });
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -59,7 +65,7 @@ namespace PetFeliz.Api
             app.UseStaticFiles(new StaticFileOptions
             {
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "StaticFiles")),
-                RequestPath = "/v1/PetImages"
+                RequestPath = "/api/PetImages"
             });
         }
     }

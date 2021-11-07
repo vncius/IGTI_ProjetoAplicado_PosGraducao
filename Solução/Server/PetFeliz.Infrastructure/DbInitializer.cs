@@ -1,10 +1,8 @@
 ﻿using Newtonsoft.Json;
-using PetFeliz.Domain.Model;
 using PetFeliz.Domain.Model.Localization;
 using PetFeliz.Domain.Model.Publication;
 using PetFeliz.Domain.Model.User;
 using PetFeliz.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,6 +12,10 @@ namespace PetFeliz.Infrastructure
     {
         public static void Initialize(ContextDB context)
         {
+#if !DEBUG
+            return;
+#endif
+
             if (!context.Countries.Any())
             {
                 string text = System.IO.File.ReadAllText(@"Localidades.txt");
@@ -34,20 +36,28 @@ namespace PetFeliz.Infrastructure
                     {
                         country.Cities.Add(new CityModel()
                         {
-                            Name = city
+                            Name = city,
                         });
                     }
 
                     countries.Add(country);
                 }
 
-                countries.ForEach(s => context.Countries.Add(s));
+                countries.ForEach(s =>
+                {
+                    context.Countries.Add(s);
+                    foreach (var city in s.Cities)
+                    {
+                        context.Cities.Add(city);
+                    }
+                });
                 context.SaveChanges();
             }
 
             if (!context.Users.Any())
             {
                 var city = context.Cities.Where(x => x.Name == "Goiânia").FirstOrDefault();
+                var country = context.Countries.Where(x => x.Cities.Contains(city)).FirstOrDefault();
 
                 context.Users.Add(new UserModel()
                 {
@@ -55,6 +65,7 @@ namespace PetFeliz.Infrastructure
                     CPF = "702.220.659-88",
                     Nome = "Vinicius Vieira Abreu",
                     CidadeId = city.Id,
+                    EstadoId = country.Id,
                     Password = "21232f297a57a5a743894a0e4a801fc3",
                     Telefone = "62 98161-7801"
                 });
@@ -72,7 +83,7 @@ namespace PetFeliz.Infrastructure
                     Nome = "Spike",
                     Descricao = "Cachorro manso de raça",
                     CidadeId = user.CidadeId,
-                    Setor = "Mansões Paraíso",
+                    EstadoId = user.EstadoId,
                     Sexo = "Macho",
                     Idade = 3,
                     IsAdotado = false,

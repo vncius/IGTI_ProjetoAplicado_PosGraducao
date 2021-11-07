@@ -1,22 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import InputPadrao from '../Formulario/InputPadrao';
 
-
-export default function Pesquisar({ find }) {
-  const [states, setStates] = useState([])
+export default function Pesquisar({ find, states }) {
   const [txtFind, setFind] = useState('');
   const [stateSeach, setStateSeach] = useState(false);
   const [noneSearch, setNoneSearch] = useState('none');
-
-  useEffect(() => {
-    var timeout = setTimeout(async () => {
-      var response = await fetch('http://localhost:3000/Localidades/');
-      var json = await response.json();
-      setStates(json.map(x => x.Estado));
-    }, 1000);
-
-    return () => { clearTimeout(timeout) }
-  }, [])
 
   const Finder = (event) => {
     event.preventDefault();
@@ -59,7 +47,6 @@ export default function Pesquisar({ find }) {
                 <option value='-1'>Nenhum</option>
                 <option value='0'>Estado</option>
                 <option value='1'>Cidade</option>
-                <option value='2'>Setor</option>
               </select>
             </div>
           </div>
@@ -72,10 +59,10 @@ export default function Pesquisar({ find }) {
               <div className="col-7 col-md-5" style={{ paddingRight: 0 }}>
                 <div className="form-group">
                   <label htmlFor="selectState">Estados</label>
-                  <select className="form-control" id="selectState" defaultValue='TO'>
+                  <select className="form-control" id="selectState" defaultValue='-1'>
                     {
-                      states.map((x, index) => {
-                        return (<option key={index} value={x}>{x}</option>);
+                      states.map((x) => {
+                        return (<option key={x.id} value={x.name}>{x.name}</option>);
                       })
                     }
                   </select>

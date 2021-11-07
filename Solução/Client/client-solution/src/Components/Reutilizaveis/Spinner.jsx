@@ -1,6 +1,5 @@
 import { css } from "@emotion/react";
 import ClipLoader from "react-spinners/ClipLoader";
-import EfeitoFade from "./EfeitoFade";
 import React from 'react'
 
 export default function Spinner() {

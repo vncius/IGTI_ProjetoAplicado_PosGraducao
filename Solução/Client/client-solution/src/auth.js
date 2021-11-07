@@ -1,3 +1,5 @@
+import { getUserWithCredentials } from './Services/ServicosPetFeliz'
+
 const logout = () => {
   localStorage.clear();
 }
@@ -17,23 +19,17 @@ const isAutheticated = () => {
 };
 
 const getUserAuthenticated = async (obterSenha = false) => {
-  var userName = atob(localStorage.getItem('Data'));
-  const response = await fetch(`http://localhost:3000/User?Email=${userName}`);
-  const data = await response.json();
-  const user = data[0];
-  if (!obterSenha) {
-    delete user.Senha;
-  }
-  return user
+  var user = JSON.parse(localStorage.getItem('User'));
+  return user;
 }
 
 const Authentique = async (login, password) => {
-  const response = await fetch(`http://localhost:3000/User?Email=${login}&Senha=${btoa(password)}`);
-  const json = await response.json();
+  const result = await getUserWithCredentials(login, password);
 
-  if (json.length > 0) {
+  if (result != null && result.token !== null && result.token !== undefined && result.token !== '') {
     localStorage.setItem("Auth", true);
     localStorage.setItem("Data", btoa(login))
+    localStorage.setItem("User", JSON.stringify(result.user))
     return true;
   }
   else {

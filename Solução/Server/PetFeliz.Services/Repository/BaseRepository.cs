@@ -8,21 +8,21 @@ namespace PetFeliz.Services.Repository
 {
     public abstract class BaseRepository<TDto> : IBaseRepository<TDto> where TDto : BaseModel
     {
-        protected readonly DbSet<TDto> _contextDB;
+        protected readonly ContextDB _contextDB;
 
         public BaseRepository(ContextDB contextDB)
         {
-            _contextDB = contextDB.Set<TDto>();
+            _contextDB = contextDB;
         }
 
         public async Task<TDto> GetById(long id)
         {
-            return await _contextDB.FindAsync(id);
+            return await _contextDB.Set<TDto>().FindAsync(id);
         }
 
         public async Task<IList<TDto>> GetList()
         {
-            return await _contextDB.AsNoTracking().ToListAsync();
+            return await _contextDB.Set<TDto>().AsNoTracking().ToListAsync();
         }
 
         public async virtual Task<TDto> Save(TDto model)
@@ -38,8 +38,10 @@ namespace PetFeliz.Services.Repository
                 }
             }
 
-            await _contextDB.AddAsync(model);
-            return model;
+            var result = await _contextDB.Set<TDto>().AddAsync(model);
+            await _contextDB.SaveChangesAsync();
+            var obj = result.Entity as TDto;
+            return obj;
         }
 
         public async virtual Task<TDto> DeleteById(long id)

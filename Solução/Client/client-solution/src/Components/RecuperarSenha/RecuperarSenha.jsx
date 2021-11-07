@@ -6,18 +6,11 @@ import FadeIn from 'react-fade-in';
 
 export default function RecuperarSenha() {
   const [txtCPF, setCPF] = useState('');
-  // const [txtSenha, setSenha] = useState('');
-  // const [txtSenhaConfirm, setSenhaConfirm] = useState('');
   const [isEnvioCodigo, setEnvioCodigo] = useState(true);
-
-
-  const redefinirSenha = (event) => {
-    alert('Not found implementation')
-    event.preventDefault();
-  }
 
   const enviarCodigo = (event) => {
     alert('Not found implementation')
+    setEnvioCodigo(false);
     event.preventDefault();
   }
   const changeCpf = (text) => { setCPF(text); }

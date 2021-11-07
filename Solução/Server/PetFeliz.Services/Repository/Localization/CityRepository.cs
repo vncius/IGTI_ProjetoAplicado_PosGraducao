@@ -15,7 +15,7 @@ namespace PetFeliz.Services.Repository.Localization
 
         public async Task<IList<CityModel>> GetListByIdCountry(long id)
         {
-            return await _contextDB.Where(x => x.Country.Id == id).AsNoTracking().ToListAsync();
+            return await _contextDB.Set<CityModel>().Where(x => x.Country.Id == id).AsNoTracking().ToListAsync();
         }
     }
 }

@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PetFeliz.Domain.Model.User;
 using PetFeliz.Infrastructure;
+using PetFeliz.Interfaces.Service.Localization;
 using PetFeliz.Interfaces.Service.User;
+using System;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -33,7 +35,20 @@ namespace PetFeliz.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> GetUser(long id)
         {
-            return Ok(await _userService.GetById<UserModel>(id));
+            var result = await _userService.GetById<UserModel>(id);
+            result.Password = string.Empty;
+            return Ok(result);
+        }
+
+        [HttpGet("email/{email}")]
+        [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType((int)HttpStatusCode.NoContent)]
+        [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
+        public async Task<IActionResult> GetUser(string email)
+        {
+            var user = await _userService.GetUserEmail(email);
+            user.Password = string.Empty;
+            return Ok(user);
         }
 
         [HttpPut]
@@ -42,6 +57,13 @@ namespace PetFeliz.Api.Controllers
         [ProducesResponseType((int)HttpStatusCode.InternalServerError)]
         public async Task<IActionResult> PutUser([FromBody] UserModel user)
         {
+            if (user?.Id <= 0) throw new Exception("Campo ID é obrigatório e não foi informado.");
+
+            if (user != null)
+            {
+                user.Password = user.Password.Encripty();
+            }
+
             return Ok(await _userService.Save<UserModel>(user));
         }
 

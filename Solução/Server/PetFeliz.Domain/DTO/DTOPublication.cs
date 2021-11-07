@@ -13,12 +13,13 @@ namespace PetFeliz.Domain.DTO
             UserId = model.UserId;
             Nome = model.Nome;
             CidadeId = model.CidadeId;
-            Setor = model.Setor;
             Sexo = model.Sexo;
             Idade = model.Idade;
             Descricao = model.Descricao;
             IsAdotado = model.IsAdotado;
             NameImagem = model.NameImagem;
+            EstadoId = model.EstadoId;
+            PublicationCanceled = model.PublicationCanceled;
         }
 
         public long Id { get; set; }
@@ -26,10 +27,12 @@ namespace PetFeliz.Domain.DTO
         public string Nome { get; set; }
         public string Descricao { get; set; }
         public long CidadeId { get; set; }
+        public long EstadoId { get; set; }
         public string Setor { get; set; }
         public string Sexo { get; set; }
         public int Idade { get; set; }
         public bool IsAdotado { get; set; }
         public string NameImagem { get; set; }
+        public bool PublicationCanceled { get; set; }
     }
 }

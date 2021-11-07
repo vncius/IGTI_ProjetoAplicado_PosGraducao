@@ -59,3 +59,9 @@
     margin: 0px 150px!important;
   }
 }
+
+@media (min-width:1921px) and (max-width:2800px) {
+  .containerPublicacoes .publicacoes {
+    margin: 0px 400px!important;
+  }
+}

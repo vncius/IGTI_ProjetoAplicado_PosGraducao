@@ -5,22 +5,23 @@ import Login from './Components/Login/Login';
 import Cadastro from './Components/Cadastro/Cadastro'
 import RecuperarSenha from './Components/RecuperarSenha/RecuperarSenha'
 import Principal from './Components/Principal/Principal'
-import { isAutheticated } from './auth';
+// import { isAutheticated } from './auth';
 
-const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route {...rest} render={props => (
-    isAutheticated() ? (
-      <Component {...props} />
-    ) : (
-      <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
-    )
-  )} />
-);
+// const PrivateRoute = ({ component: Component, ...rest }) => (
+//   <Route {...rest} render={props => (
+//     isAutheticated() ? (
+//       <Component {...props} />
+//     ) : (
+//       <Redirect to={{ pathname: '/login', state: { from: props.location } }} />
+//     )
+//   )} />
+// );
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
       {/* <PrivateRoute exact path="/" component={() => <Publicacoes />} /> */}
+      <Route exact path="/public/:search" render={(props) => <Principal {...props} />} />
       <Route exact path="/" component={() => <Principal />} />
       <Route path="/login" component={() => <Login />} />
       <Route path="/Principal" component={() => <Principal />} />

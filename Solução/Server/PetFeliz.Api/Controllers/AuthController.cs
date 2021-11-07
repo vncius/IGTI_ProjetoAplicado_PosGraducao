@@ -32,7 +32,9 @@ namespace PetFeliz.Api.Controllers
 
             if (await _userService.GetByUserSenha(user?.Email, user?.Password))
             {
-                return Ok(new { token = Guid.NewGuid() });
+                var data = await _userService.GetUserEmail(user?.Email);
+                data.Password = string.Empty;
+                return Ok(new { token = Guid.NewGuid(), user = data });
             }
 
             return Unauthorized();

@@ -14,4 +14,23 @@ const RemoveAcentos = (text) => {
   return text;
 }
 
-export { EmailEhValido, RemoveAcentos }
+const GetDadosCidadeWithList = (statesAll, idCidade, idEstado) => {
+  const estado = statesAll.find(x => x.id === idEstado);
+  const city = estado.cities.find(x => x.id === idCidade);
+
+  return {
+    stateId: estado.id,
+    stateName: estado.name,
+    cityId: city.id,
+    cityName: city.name
+  };
+}
+
+const ConvertFileToBase64 = (file) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = error => reject(error);
+});
+
+export { EmailEhValido, RemoveAcentos, GetDadosCidadeWithList, ConvertFileToBase64 }

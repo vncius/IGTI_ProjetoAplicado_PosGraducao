@@ -22,6 +22,11 @@ namespace PetFeliz.Services.Service.Publicacao
             return await _repository.GetByUserSenha(email, password);
         }
 
+        public async Task<UserModel> GetUserEmail(string email)
+        {
+            return await _repository.GetUserEmail(email);
+        }
+
         public async override Task<object> GetDTO(UserModel model)
         {
             return await Task.Run(() => {

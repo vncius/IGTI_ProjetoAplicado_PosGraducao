@@ -14,7 +14,7 @@ namespace PetFeliz.Services.Repository.Publicacao
         }
         public async Task<IList<PublicationModel>> GetByUserId(long id)
         {
-            return await _contextDB.Where(x => x.User.Id == id).AsNoTracking().ToListAsync();
+            return await _contextDB.Set<PublicationModel>().Where(x => x.User.Id == id).AsNoTracking().ToListAsync();
         }
     }
 }

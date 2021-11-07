@@ -5,20 +5,40 @@ import DetalhesPet from './DetalhesPet';
 import Pesquisar from './Pesquisar';
 import Publicacao from './Publicacao';
 import './publicacoes.css';
-import { RemoveAcentos } from '../../Utilidades/Util'
+import { RemoveAcentos, GetDadosCidadeWithList } from '../../Utilidades/Util'
+import { getPublicacoes, getLocalidades, getUserById } from '../../Services/ServicosPetFeliz'
 
-export default function Publicacoes() {
+export default function Publicacoes({ props }) {
   const [publicacoesFiltered, setPublicacoesFiltered] = useState([]);
   const [publicacoes, setPublicacoes] = useState([]);
   const [publicSelected, setPublicSelected] = useState(null);
+  const [userPublicSelected, setUserPublicSelected] = useState(null);
+  const [states, setStates] = useState(null);
+  const [publicLink, setPublicLink] = useState(null);
+  const [showDetalhes, setShowDetalhes] = useState(false);
+
+  useEffect(() => {
+    if (publicLink) {
+      publicacaoSelecionada(publicLink);
+      setShowDetalhes(true);
+    }
+  }, [publicLink]);
 
   useEffect(() => {
     var timeout = setTimeout(async () => {
-      var response = await fetch('http://localhost:3000/Publicacoes/');
-      var json = await response.json();
-
+      var json = await getPublicacoes();
+      var states = await getLocalidades();
+      json = json.filter(x => !x.publicationCanceled)
+      setStates(states);
       setPublicacoes(json);
       setPublicacoesFiltered(json);
+      setShowDetalhes(false);
+
+      if (props && props.match && props.match.params && props.match.params.search && props.match.params.search !== '') {
+        try {
+          setPublicLink(parseInt(props.match.params.search));
+        } catch (error) { }
+      }
     }, 1000);
 
     return () => { clearTimeout(timeout) }
@@ -29,15 +49,15 @@ export default function Publicacoes() {
 
     publicFiltered = publicFiltered.filter(value => {
       let retorno = true;
-      const { Estado, Cidade, Setor } = value;
+      const { estadoId, cidadeId, sexo } = value;
       const descNormalized = RemoveAcentos(descricao);
+      const dados = GetDadosCidadeWithList(states, cidadeId, estadoId);
 
-      if (Sexo === 1 && value.Sexo !== 'Macho') retorno = false;
-      if (Sexo === 2 && value.Sexo !== 'Femêa') retorno = false;
+      if (Sexo === 1 && sexo !== 'Macho') retorno = false;
+      if (Sexo === 2 && sexo !== 'Femêa') retorno = false;
       if (descNormalized !== '' && descNormalized !== null) {
-        if (tipoFiltro == 0 && !RemoveAcentos(Estado).includes(descNormalized)) retorno = false;
-        if (tipoFiltro == 1 && !RemoveAcentos(Cidade).includes(descNormalized)) retorno = false;
-        if (tipoFiltro == 2 && !RemoveAcentos(Setor).includes(descNormalized)) retorno = false;
+        if (tipoFiltro === 0 && !RemoveAcentos(dados.stateName).includes(descNormalized)) retorno = false;
+        if (tipoFiltro === 1 && !RemoveAcentos(dados.cityName).includes(descNormalized)) retorno = false;
       }
 
       return retorno;
@@ -45,9 +65,14 @@ export default function Publicacoes() {
     setPublicacoesFiltered(publicFiltered);
   }
 
-  const publicacaoSelecionada = (id) => {
-    const pet = publicacoes.find(x => x.Id === id);
-    setPublicSelected(pet);
+  const publicacaoSelecionada = async (id) => {
+    const pet = publicacoes.find(x => x.id === id);
+    if (pet) {
+      const user = await getUserById(pet.userId);
+      setUserPublicSelected(user);
+      setPublicSelected(pet);
+      setShowDetalhes(true);
+    }
   }
 
   if (publicacoes.length <= 0) {
@@ -56,19 +81,21 @@ export default function Publicacoes() {
 
   return (
     <div className="containerPublicacoes">
-      <Pesquisar find={Finder} />
+      <Pesquisar find={Finder} states={states} />
       <EfeitoFade>
         <div className='row publicacoes'>
 
           {publicacoesFiltered.map((x) => {
             return (
-              <Publicacao key={x.id} dados={x} selected={publicacaoSelecionada} />
+              <Publicacao key={x.id} dados={x} selected={publicacaoSelecionada} statesAll={states} />
             );
           })}
 
         </div>
       </EfeitoFade>
-      <DetalhesPet publicacao={publicSelected} />
+      {
+        showDetalhes ? <DetalhesPet publicacao={publicSelected} user={userPublicSelected} statesAll={states} /> : <></>
+      }
     </div>
   );
 };

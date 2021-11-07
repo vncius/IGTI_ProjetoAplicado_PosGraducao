@@ -8,14 +8,10 @@
   height: 100%;
 }
 
-/* 
-#footer{
-  color: white;
-  background-color: darkslateblue;
-  bottom: 0;
-  width: 100%;
+.dropdown-menu, .mouserPointer {
+  cursor: pointer;
 }
 
-#footer .row .col {
-  padding: 10px
-} */
+.iconPrincipal {
+  color: white;
+}
